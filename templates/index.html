@@ -219,9 +219,7 @@
 
     .history-list {
       flex: 1;
-
       overflow-y: auto;
-
       margin-top: 4px;
     }
 
@@ -297,7 +295,6 @@
 
     .topbar {
       height: 60px;
-
       flex: 0 0 60px;
 
       display: flex;
@@ -312,14 +309,12 @@
     }
 
     .top-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      color: #2b2b27;
 
-      color: #464640;
+      font-size: 18px;
+      font-weight: 600;
 
-      font-size: 12px;
-      font-weight: 500;
+      letter-spacing: -0.02em;
     }
 
     .model-pill {
@@ -374,7 +369,7 @@
     }
 
     /* =========================
-       WELCOME SCREEN
+       WELCOME
     ========================== */
 
     .welcome {
@@ -550,27 +545,69 @@
 
     /* =========================
        COMPOSER
-       IMPORTANT:
-       OUTSIDE .welcome
     ========================== */
 
-    .composer-wrap {
+    .composer-area {
       flex: 0 0 auto;
 
-      width: min(760px, 94%);
+      width: min(780px, 94%);
 
       margin: 0 auto;
 
       padding: 0 0 15px;
     }
 
+    .composer-hint {
+      margin: 0 auto 8px;
+
+      color: #85857f;
+
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .quick-prompts {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      gap: 8px;
+
+      margin: 0 auto 10px;
+    }
+
+    .quick-prompts button {
+      padding: 7px 12px;
+
+      border: 1px solid #e4e4df;
+      border-radius: 999px;
+
+      background: #ffffff;
+
+      color: #777771;
+
+      font-size: 10px;
+
+      transition: 0.15s ease;
+    }
+
+    .quick-prompts button:hover {
+      border-color: var(--accent);
+
+      color: var(--accent-dark);
+
+      background: #fff8f6;
+    }
+
     .composer {
+      min-height: 76px;
+
       display: flex;
       align-items: flex-end;
 
       gap: 10px;
 
-      padding: 12px 12px 12px 17px;
+      padding: 13px 13px 13px 18px;
 
       border: 1px solid #ddddda;
 
@@ -608,7 +645,7 @@
 
       background: transparent;
 
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.55;
     }
 
@@ -621,15 +658,15 @@
     }
 
     .send-btn {
-      width: 38px;
-      height: 38px;
+      width: 40px;
+      height: 40px;
 
-      flex: 0 0 38px;
+      flex: 0 0 40px;
 
       display: grid;
       place-items: center;
 
-      border-radius: 10px;
+      border-radius: 11px;
 
       color: white;
 
@@ -675,15 +712,15 @@
     ========================== */
 
     .message-row {
-      width: min(800px, 92%);
+      width: min(900px, 92%);
 
       display: flex;
 
-      gap: 12px;
+      gap: 14px;
 
       margin: 0 auto;
 
-      padding: 15px 0;
+      padding: 18px 0;
 
       animation: fadeIn 0.18s ease;
     }
@@ -736,7 +773,7 @@
     }
 
     .message-role {
-      margin-bottom: 4px;
+      margin-bottom: 5px;
 
       color: #85857f;
 
@@ -750,11 +787,13 @@
     }
 
     .message-text {
+      max-width: 760px;
+
       color: var(--text-soft);
 
-      font-size: 13px;
+      font-size: 14px;
 
-      line-height: 1.75;
+      line-height: 1.8;
 
       white-space: pre-wrap;
 
@@ -874,7 +913,6 @@
     ========================== */
 
     @media (max-width: 900px) {
-
       .sidebar {
         width: 200px;
         min-width: 200px;
@@ -887,11 +925,9 @@
       .suggestion-card {
         min-height: 70px;
       }
-
     }
 
     @media (max-width: 680px) {
-
       .sidebar {
         display: none;
       }
@@ -909,7 +945,7 @@
         font-size: 38px;
       }
 
-      .composer-wrap,
+      .composer-area,
       .suggestion-section {
         width: 94%;
       }
@@ -921,9 +957,7 @@
       .composer-meta {
         font-size: 8px;
       }
-
     }
-
   </style>
 </head>
 
@@ -931,9 +965,7 @@
 
 <div class="layout">
 
-  <!-- =========================
-       SIDEBAR
-  ========================== -->
+  <!-- SIDEBAR -->
 
   <aside class="sidebar">
 
@@ -1001,18 +1033,14 @@
     </div>
 
     <div class="sidebar-footer">
-
       AI Chat<br>
       Flask · Gunicorn · Docker<br>
       Llama 3.3 70B via Groq
-
     </div>
 
   </aside>
 
-  <!-- =========================
-       MAIN
-  ========================== -->
+  <!-- MAIN -->
 
   <main class="main">
 
@@ -1034,9 +1062,7 @@
 
     </div>
 
-    <!-- =========================
-         MESSAGE AREA
-    ========================== -->
+    <!-- MESSAGE AREA -->
 
     <div
       class="messages"
@@ -1061,8 +1087,6 @@
           <div class="welcome-subtitle">
             How can I assist you today?
           </div>
-
-          <!-- SUGGESTIONS -->
 
           <div class="suggestion-section">
 
@@ -1142,12 +1166,41 @@
 
     </div>
 
-    <!-- =========================
-         COMPOSER
-         ALWAYS VISIBLE
-    ========================== -->
+    <!-- COMPOSER -->
 
-    <div class="composer-wrap">
+    <div class="composer-area">
+
+      <div class="composer-hint">
+        Ask anything, get clear answers.
+      </div>
+
+      <div class="quick-prompts">
+
+        <button
+          onclick="usePrompt('Explain Kubernetes')"
+        >
+          Explain Kubernetes
+        </button>
+
+        <button
+          onclick="usePrompt('Help me with Docker')"
+        >
+          Docker help
+        </button>
+
+        <button
+          onclick="usePrompt('Explain CI/CD')"
+        >
+          CI/CD
+        </button>
+
+        <button
+          onclick="usePrompt('Help me debug a Python script')"
+        >
+          Python help
+        </button>
+
+      </div>
 
       <div class="composer">
 
@@ -1281,7 +1334,7 @@
 
 
   /* =========================
-     SUGGESTION CLICK
+     SUGGESTION CARD
   ========================== */
 
   function sendSuggestion(button) {
@@ -1297,7 +1350,29 @@
 
     inputEl.value = title;
 
-    sendMessage();
+    inputEl.focus();
+
+  }
+
+
+  /* =========================
+     QUICK PROMPT
+  ========================== */
+
+  function usePrompt(text) {
+
+    inputEl.value = text;
+
+    inputEl.focus();
+
+    inputEl.style.height =
+      "auto";
+
+    inputEl.style.height =
+      Math.min(
+        inputEl.scrollHeight,
+        170
+      ) + "px";
 
   }
 
@@ -1355,6 +1430,9 @@
     const freshWelcome =
       welcome.cloneNode(true);
 
+    freshWelcome.style.display =
+      "flex";
+
     messagesEl.appendChild(
       freshWelcome
     );
@@ -1403,6 +1481,8 @@
     renderHistory();
 
     scrollToBottom();
+
+    inputEl.focus();
 
   }
 
@@ -1469,13 +1549,8 @@
       return;
     }
 
-
-    /* Hide only welcome screen.
-       Composer stays visible. */
-
     welcome.style.display =
       "none";
-
 
     inputEl.value = "";
 
@@ -1623,9 +1698,7 @@
       <div class="message-content">
 
         <div class="message-role">
-
           ${label}
-
         </div>
 
         ${
@@ -1633,17 +1706,13 @@
 
             ? `
               <div class="error-msg">
-
                 ${escapeHtml(error)}
-
               </div>
             `
 
             : `
               <div class="message-text">
-
                 ${formatText(content)}
-
               </div>
             `
         }
@@ -1667,7 +1736,7 @@
 
 
   /* =========================
-     TYPING INDICATOR
+     TYPING
   ========================== */
 
   function appendTyping() {
