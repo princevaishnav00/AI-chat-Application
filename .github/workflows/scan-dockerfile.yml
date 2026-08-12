@@ -1,6 +1,6 @@
 # Scans Dockerfile for issues and CVEs (Common Vurnerablities and Exposures)
 
-name: Docker Lint
+name: scan-dockerfile
 
 on:
     workflow_call:
