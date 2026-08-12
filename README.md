@@ -119,6 +119,6 @@ This app is intentionally minimal to keep the security baseline small.
 
 ---
 
-**Aayush Madan**
-- **Email**: aayush.madan4611@gmail.com
-- **LinkedIn**: [http://www.linkedin.com/in/aayush-madan-devops](http://www.linkedin.com/in/aayush-madan-devops)
+**Prince Vaishnav**
+- **Email**: vaishnavprince995@gmail.com
+- **LinkedIn**: [https://www.linkedin.com/in/prince-vaishnav-b685a0319/](https://www.linkedin.com/in/prince-vaishnav-b685a0319/)
