@@ -1,0 +1,11 @@
+flask
+requests
+gunicorn
+python-dotenv
+flake8
+bandit
+pytest
+msgpack==1.2.1
+setuptools==83.0.0
+wheel==0.46.2
+jaraco.context==6.1.2

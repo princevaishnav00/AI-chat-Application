@@ -1,0 +1,19 @@
+# Scans Dockerfile for issues and CVEs (Common Vurnerablities and Exposures)
+
+name: Docker Lint
+
+on:
+    workflow_call:
+
+jobs:
+    validate_dockerfile:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v6
+            
+            - name: Validate Dockerfile
+              uses: hadolint/hadolint-action@v3.1.0
+              with:
+                dockerfile: Dockerfile
