@@ -24,13 +24,14 @@
 
     :root {
       --bg: #f7f7f5;
+      --sidebar: #f1f1ee;
       --panel: #ffffff;
-      --panel-soft: #fbfbfa;
 
       --border: #e8e8e4;
       --border-hover: #d7d7d0;
 
       --text: #171717;
+      --text-soft: #343430;
       --muted: #777771;
       --muted-light: #a1a19a;
 
@@ -76,7 +77,6 @@
     .layout {
       width: 100%;
       height: 100vh;
-
       display: flex;
     }
 
@@ -93,7 +93,7 @@
 
       padding: 18px 14px;
 
-      background: #f1f1ee;
+      background: var(--sidebar);
 
       border-right: 1px solid var(--border);
     }
@@ -135,8 +135,6 @@
       background: var(--border);
     }
 
-    /* Sidebar action */
-
     .new-chat-btn {
       display: flex;
       align-items: center;
@@ -177,8 +175,6 @@
       font-size: 13px;
     }
 
-    /* Sidebar links */
-
     .sidebar-section {
       margin-top: 24px;
     }
@@ -207,6 +203,8 @@
       color: #6c6c67;
 
       font-size: 11px;
+
+      transition: 0.15s ease;
     }
 
     .sidebar-link:hover {
@@ -218,8 +216,6 @@
       width: 16px;
       text-align: center;
     }
-
-    /* History */
 
     .history-list {
       flex: 1;
@@ -302,6 +298,8 @@
     .topbar {
       height: 60px;
 
+      flex: 0 0 60px;
+
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -310,7 +308,7 @@
 
       border-bottom: 1px solid var(--border);
 
-      background: rgba(247, 247, 245, 0.92);
+      background: rgba(247, 247, 245, 0.96);
     }
 
     .top-left {
@@ -353,11 +351,13 @@
     }
 
     /* =========================
-       CONTENT
+       MESSAGE AREA
     ========================== */
 
     .messages {
       flex: 1;
+
+      min-height: 0;
 
       overflow-y: auto;
 
@@ -374,7 +374,7 @@
     }
 
     /* =========================
-       WELCOME
+       WELCOME SCREEN
     ========================== */
 
     .welcome {
@@ -384,7 +384,7 @@
       align-items: center;
       justify-content: center;
 
-      padding: 30px 24px 55px;
+      padding: 25px 24px 40px;
     }
 
     .welcome-inner {
@@ -462,118 +462,6 @@
     }
 
     /* =========================
-       COMPOSER
-    ========================== */
-
-    .composer-wrap {
-      width: min(760px, 94%);
-
-      margin: 30px auto 0;
-    }
-
-    .composer {
-      display: flex;
-      align-items: flex-end;
-
-      gap: 10px;
-
-      padding: 12px 12px 12px 17px;
-
-      border: 1px solid #ddddda;
-
-      border-radius: 14px;
-
-      background: white;
-
-      box-shadow:
-        0 8px 26px rgba(0, 0, 0, 0.045);
-
-      transition: 0.18s ease;
-    }
-
-    .composer:focus-within {
-      border-color: #cfcfca;
-
-      box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.07);
-    }
-
-    #userInput {
-      flex: 1;
-
-      min-height: 30px;
-      max-height: 170px;
-
-      padding: 5px 0;
-
-      border: 0;
-      outline: 0;
-
-      resize: none;
-
-      color: #272722;
-
-      background: transparent;
-
-      font-size: 13px;
-      line-height: 1.55;
-    }
-
-    #userInput::placeholder {
-      color: #a6a69f;
-    }
-
-    .send-btn {
-      width: 38px;
-      height: 38px;
-
-      flex: 0 0 38px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 10px;
-
-      color: white;
-
-      background: var(--accent);
-
-      box-shadow:
-        0 6px 16px rgba(242, 107, 79, 0.22);
-
-      transition: 0.15s ease;
-    }
-
-    .send-btn:hover {
-      background: var(--accent-dark);
-
-      transform: translateY(-1px);
-    }
-
-    .send-btn:active {
-      transform: scale(0.96);
-    }
-
-    .send-btn:disabled {
-      opacity: 0.4;
-
-      cursor: not-allowed;
-
-      transform: none;
-    }
-
-    .composer-meta {
-      display: flex;
-      justify-content: space-between;
-
-      margin-top: 8px;
-
-      color: #a0a099;
-
-      font-size: 9px;
-    }
-
-    /* =========================
        SUGGESTIONS
     ========================== */
 
@@ -590,6 +478,7 @@
 
       font-size: 11px;
       font-weight: 500;
+      text-align: left;
     }
 
     .suggestion-grid {
@@ -660,6 +549,128 @@
     }
 
     /* =========================
+       COMPOSER
+       IMPORTANT:
+       OUTSIDE .welcome
+    ========================== */
+
+    .composer-wrap {
+      flex: 0 0 auto;
+
+      width: min(760px, 94%);
+
+      margin: 0 auto;
+
+      padding: 0 0 15px;
+    }
+
+    .composer {
+      display: flex;
+      align-items: flex-end;
+
+      gap: 10px;
+
+      padding: 12px 12px 12px 17px;
+
+      border: 1px solid #ddddda;
+
+      border-radius: 14px;
+
+      background: white;
+
+      box-shadow:
+        0 8px 26px rgba(0, 0, 0, 0.045);
+
+      transition: 0.18s ease;
+    }
+
+    .composer:focus-within {
+      border-color: #cfcfca;
+
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.07);
+    }
+
+    #userInput {
+      flex: 1;
+
+      min-height: 30px;
+      max-height: 170px;
+
+      padding: 5px 0;
+
+      border: 0;
+      outline: 0;
+
+      resize: none;
+
+      color: #272722;
+
+      background: transparent;
+
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    #userInput::placeholder {
+      color: #a6a69f;
+    }
+
+    #userInput::-webkit-scrollbar {
+      width: 0;
+    }
+
+    .send-btn {
+      width: 38px;
+      height: 38px;
+
+      flex: 0 0 38px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 10px;
+
+      color: white;
+
+      background: var(--accent);
+
+      box-shadow:
+        0 6px 16px rgba(242, 107, 79, 0.22);
+
+      transition: 0.15s ease;
+    }
+
+    .send-btn:hover {
+      background: var(--accent-dark);
+
+      transform: translateY(-1px);
+    }
+
+    .send-btn:active {
+      transform: scale(0.96);
+    }
+
+    .send-btn:disabled {
+      opacity: 0.4;
+
+      cursor: not-allowed;
+
+      transform: none;
+    }
+
+    .composer-meta {
+      display: flex;
+      justify-content: space-between;
+
+      margin-top: 8px;
+
+      color: #a0a099;
+
+      font-size: 9px;
+    }
+
+    /* =========================
        CHAT MESSAGES
     ========================== */
 
@@ -715,7 +726,7 @@
     .avatar.ai {
       color: #44443f;
 
-      background: #ededE8;
+      background: #edede8;
     }
 
     .message-content {
@@ -739,7 +750,7 @@
     }
 
     .message-text {
-      color: #343430;
+      color: var(--text-soft);
 
       font-size: 13px;
 
@@ -798,6 +809,7 @@
 
     .typing-indicator {
       display: flex;
+
       gap: 4px;
 
       padding: 6px 0;
@@ -811,7 +823,8 @@
 
       background: #aaa9a1;
 
-      animation: bounce 1.2s infinite;
+      animation:
+        bounce 1.2s infinite;
     }
 
     .typing-indicator span:nth-child(2) {
@@ -861,6 +874,7 @@
     ========================== */
 
     @media (max-width: 900px) {
+
       .sidebar {
         width: 200px;
         min-width: 200px;
@@ -873,9 +887,11 @@
       .suggestion-card {
         min-height: 70px;
       }
+
     }
 
     @media (max-width: 680px) {
+
       .sidebar {
         display: none;
       }
@@ -905,7 +921,9 @@
       .composer-meta {
         font-size: 8px;
       }
+
     }
+
   </style>
 </head>
 
@@ -920,6 +938,7 @@
   <aside class="sidebar">
 
     <div class="brand">
+
       <div class="brand-logo">
         AI
       </div>
@@ -927,6 +946,7 @@
       <div class="brand-name">
         AI Chat
       </div>
+
     </div>
 
     <div class="sidebar-divider"></div>
@@ -935,8 +955,13 @@
       class="new-chat-btn"
       onclick="newChat()"
     >
-      <span class="new-chat-icon">+</span>
+
+      <span class="new-chat-icon">
+        +
+      </span>
+
       New chat
+
     </button>
 
     <div class="sidebar-section">
@@ -1009,7 +1034,9 @@
 
     </div>
 
-    <!-- MESSAGES -->
+    <!-- =========================
+         MESSAGE AREA
+    ========================== -->
 
     <div
       class="messages"
@@ -1033,69 +1060,6 @@
 
           <div class="welcome-subtitle">
             How can I assist you today?
-          </div>
-
-          <!-- COMPOSER -->
-
-          <div class="composer-wrap">
-
-            <div class="composer">
-
-              <textarea
-                id="userInput"
-                rows="1"
-                placeholder="What can I do for you?"
-                autocomplete="off"
-                spellcheck="true"
-              ></textarea>
-
-              <button
-                class="send-btn"
-                id="sendBtn"
-                onclick="sendMessage()"
-                title="Send"
-              >
-
-                <svg
-                  width="17"
-                  height="17"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="white"
-                  stroke-width="2.2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-
-                  <line
-                    x1="22"
-                    y1="2"
-                    x2="11"
-                    y2="13"
-                  ></line>
-
-                  <polygon
-                    points="22 2 15 22 11 13 2 9 22 2"
-                  ></polygon>
-
-                </svg>
-
-              </button>
-
-            </div>
-
-            <div class="composer-meta">
-
-              <span>
-                Secure session
-              </span>
-
-              <span>
-                Enter to send · Shift+Enter for new line
-              </span>
-
-            </div>
-
           </div>
 
           <!-- SUGGESTIONS -->
@@ -1178,6 +1142,72 @@
 
     </div>
 
+    <!-- =========================
+         COMPOSER
+         ALWAYS VISIBLE
+    ========================== -->
+
+    <div class="composer-wrap">
+
+      <div class="composer">
+
+        <textarea
+          id="userInput"
+          rows="1"
+          placeholder="What can I do for you?"
+          autocomplete="off"
+          spellcheck="true"
+        ></textarea>
+
+        <button
+          class="send-btn"
+          id="sendBtn"
+          onclick="sendMessage()"
+          title="Send"
+        >
+
+          <svg
+            width="17"
+            height="17"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+
+            <line
+              x1="22"
+              y1="2"
+              x2="11"
+              y2="13"
+            ></line>
+
+            <polygon
+              points="22 2 15 22 11 13 2 9 22 2"
+            ></polygon>
+
+          </svg>
+
+        </button>
+
+      </div>
+
+      <div class="composer-meta">
+
+        <span>
+          Secure session
+        </span>
+
+        <span>
+          Enter to send · Shift+Enter for new line
+        </span>
+
+      </div>
+
+    </div>
+
   </main>
 
 </div>
@@ -1206,7 +1236,7 @@
 
 
   /* =========================
-     TEXTAREA
+     TEXTAREA AUTO RESIZE
   ========================== */
 
   inputEl.addEventListener(
@@ -1225,6 +1255,10 @@
   );
 
 
+  /* =========================
+     ENTER TO SEND
+  ========================== */
+
   inputEl.addEventListener(
     "keydown",
     (event) => {
@@ -1237,9 +1271,7 @@
         event.preventDefault();
 
         if (!isLoading) {
-
           sendMessage();
-
         }
 
       }
@@ -1249,13 +1281,21 @@
 
 
   /* =========================
-     SUGGESTION
+     SUGGESTION CLICK
   ========================== */
 
   function sendSuggestion(button) {
 
-    inputEl.value =
-      button.querySelector("strong").textContent;
+    const title =
+      button.querySelector(
+        "strong"
+      )?.textContent?.trim();
+
+    if (!title) {
+      return;
+    }
+
+    inputEl.value = title;
 
     sendMessage();
 
@@ -1270,24 +1310,32 @@
 
     if (history.length > 0) {
 
-      const firstMessage =
-        history[0].content || "";
-
-      const label =
-        firstMessage.slice(0, 36) +
-        (
-          firstMessage.length > 36
-            ? "…"
-            : ""
+      const firstUserMessage =
+        history.find(
+          message =>
+            message.role === "user"
         );
 
-      sessions.unshift({
-        id: Date.now(),
-        label,
-        history: [...history]
-      });
+      if (firstUserMessage) {
 
-      renderHistory();
+        const label =
+          firstUserMessage.content.slice(
+            0,
+            36
+          ) +
+          (
+            firstUserMessage.content.length > 36
+              ? "…"
+              : ""
+          );
+
+        sessions.unshift({
+          id: Date.now(),
+          label,
+          history: [...history]
+        });
+
+      }
 
     }
 
@@ -1295,13 +1343,25 @@
 
     currentSessionId = null;
 
+    setLoading(false);
+
+    inputEl.value = "";
+
+    inputEl.style.height =
+      "auto";
+
     messagesEl.innerHTML = "";
 
+    const freshWelcome =
+      welcome.cloneNode(true);
+
     messagesEl.appendChild(
-      welcome
+      freshWelcome
     );
 
-    welcome.style.display = "flex";
+    renderHistory();
+
+    inputEl.focus();
 
   }
 
@@ -1321,8 +1381,9 @@
       return;
     }
 
-    history =
-      [...session.history];
+    history = [
+      ...session.history
+    ];
 
     currentSessionId = id;
 
@@ -1339,22 +1400,9 @@
       }
     );
 
-    document
-      .querySelectorAll(
-        ".history-item"
-      )
-      .forEach(
-        item => {
+    renderHistory();
 
-          item.classList.toggle(
-            "active",
-            parseInt(
-              item.dataset.id
-            ) === id
-          );
-
-        }
-      );
+    scrollToBottom();
 
   }
 
@@ -1365,8 +1413,7 @@
 
   function renderHistory() {
 
-    historyList.innerHTML =
-      "";
+    historyList.innerHTML = "";
 
     sessions.forEach(
       session => {
@@ -1419,31 +1466,38 @@
       !text ||
       isLoading
     ) {
-
       return;
-
     }
+
+
+    /* Hide only welcome screen.
+       Composer stays visible. */
 
     welcome.style.display =
       "none";
+
 
     inputEl.value = "";
 
     inputEl.style.height =
       "auto";
 
+
     history.push({
       role: "user",
       content: text
     });
+
 
     appendMessage(
       "user",
       text
     );
 
+
     const typingRow =
       appendTyping();
+
 
     setLoading(true);
 
@@ -1464,6 +1518,7 @@
             body: JSON.stringify({
               history
             })
+
           }
         );
 
@@ -1498,6 +1553,7 @@
         );
 
       }
+
 
     } catch (error) {
 
@@ -1555,6 +1611,7 @@
 
 
     row.innerHTML = `
+
       <div class="avatar ${
         isUser ? "user" : "ai"
       }">
@@ -1566,24 +1623,33 @@
       <div class="message-content">
 
         <div class="message-role">
+
           ${label}
+
         </div>
 
         ${
           error
+
             ? `
               <div class="error-msg">
+
                 ${escapeHtml(error)}
+
               </div>
             `
+
             : `
               <div class="message-text">
+
                 ${formatText(content)}
+
               </div>
             `
         }
 
       </div>
+
     `;
 
 
@@ -1591,7 +1657,9 @@
       row
     );
 
+
     scrollToBottom();
+
 
     return row;
 
@@ -1599,7 +1667,7 @@
 
 
   /* =========================
-     TYPING
+     TYPING INDICATOR
   ========================== */
 
   function appendTyping() {
@@ -1614,6 +1682,7 @@
 
 
     row.innerHTML = `
+
       <div class="avatar ai">
         AI
       </div>
@@ -1633,6 +1702,7 @@
         </div>
 
       </div>
+
     `;
 
 
@@ -1640,7 +1710,9 @@
       row
     );
 
+
     scrollToBottom();
+
 
     return row;
 
@@ -1648,7 +1720,7 @@
 
 
   /* =========================
-     LOADING
+     LOADING STATE
   ========================== */
 
   function setLoading(state) {
@@ -1677,28 +1749,33 @@
 
 
   /* =========================
-     ESCAPE HTML
+     HTML ESCAPE
   ========================== */
 
   function escapeHtml(str) {
 
     return String(str)
+
       .replace(
         /&/g,
         "&amp;"
       )
+
       .replace(
         /</g,
         "&lt;"
       )
+
       .replace(
         />/g,
         "&gt;"
       )
+
       .replace(
         /"/g,
         "&quot;"
       )
+
       .replace(
         /'/g,
         "&#039;"
@@ -1708,7 +1785,7 @@
 
 
   /* =========================
-     FORMAT RESPONSE
+     FORMAT AI RESPONSE
   ========================== */
 
   function formatText(text) {
@@ -1717,9 +1794,12 @@
       return "";
     }
 
+
     let safe =
       escapeHtml(text);
 
+
+    /* Code blocks */
 
     safe =
       safe.replace(
@@ -1729,7 +1809,7 @@
           return `
             <pre>
               <code>
-                ${code.trim()}
+${code.trim()}
               </code>
             </pre>
           `;
@@ -1738,12 +1818,16 @@
       );
 
 
+    /* Inline code */
+
     safe =
       safe.replace(
         /`([^`]+)`/g,
         "<code>$1</code>"
       );
 
+
+    /* Bold */
 
     safe =
       safe.replace(
