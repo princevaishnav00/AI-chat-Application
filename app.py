@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-MODEL = "openai/gpt-oss-20b"
+MODEL = "llama-3.3-70b-versatile"
 
 
 SYSTEM_PROMPT = "You are a helpful, concise, and friendly AI assistant."
@@ -47,7 +47,6 @@ def chat():
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json",
-        "User-Agent": "AI-Chat-App/1.0",
     }
 
     payload = {
@@ -75,15 +74,13 @@ def chat():
 
     except requests.exceptions.HTTPError:
         status = response.status_code
-        print(f"[ERROR] Groq API HTTP Error {status}: {response.text}")
         if status == 401:
-            return jsonify({"error": "Invalid or missing Groq API Key."}), 401
+            return jsonify({"error": "Service temporarily unavailable."}), 401
         if status == 429:
-            return jsonify({"error": "Groq API rate limit exceeded."}), 429
-        return jsonify({"error": f"Groq API Error {status}: {response.text}"}), 500
+            return jsonify({"error": "Service temporarily unavailable."}), 429
+        return jsonify({"error": "Service error. Try again later."}), 500
 
-    except Exception as e:
-        print(f"[ERROR] Application exception: {str(e)}")
+    except Exception:
         return jsonify({"error": "An error occurred. Please try again."}), 500
 
 
