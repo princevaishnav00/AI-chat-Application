@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "")
 GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
-MODEL = "llama-3.3-70b-versatile"
+MODEL = "openai/gpt-oss-20b"
 
 
 SYSTEM_PROMPT = "You are a helpful, concise, and friendly AI assistant."
@@ -47,6 +47,7 @@ def chat():
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json",
+        "User-Agent": "AI-Chat-App/1.0",
     }
 
     payload = {
