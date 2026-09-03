@@ -74,6 +74,7 @@ def chat():
 
     except requests.exceptions.HTTPError:
         status = response.status_code
+        print(f"[ERROR] Groq status {status}: {response.text}")
         if status == 401:
             return jsonify({"error": "Service temporarily unavailable."}), 401
         if status == 429:
