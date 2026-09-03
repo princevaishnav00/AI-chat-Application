@@ -1,6 +1,5 @@
 services:
   web: 
-    build: .
     image: ${DOCKERHUB_USER}/ai-chat-app:${DOCKER_TAG}
     environment:
       - GROQ_API_KEY=${GROQ_API_KEY}
