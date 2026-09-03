@@ -6,6 +6,8 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt 
 
-EXPOSE 80
+# OLD: EXPOSE 80 (Direct public port binding without Nginx)
+EXPOSE 5000
 
-CMD ["gunicorn", "--bind", "0.0.0.0:80", "app:app"]
+# OLD: CMD ["gunicorn", "--bind", "0.0.0.0:80", "app:app"]
+CMD ["gunicorn", "--config", "gunicorn.conf.py", "app:app"]

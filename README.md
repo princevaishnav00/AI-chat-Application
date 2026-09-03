@@ -13,6 +13,8 @@ ai-chat-app/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── gunicorn.conf.py
+├── nginx/
+│   └── default.conf
 ├── requirements.txt
 ├── templates/
 │   └── index.html
