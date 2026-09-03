@@ -1,7 +1,7 @@
 # Package issues or vulnerabilities
 # pip-audit
 
-name: Dependency Scan
+name: dependency Check
 
 on: 
     workflow_call:
