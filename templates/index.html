@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +13,7 @@
 
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet"
-  >
+    rel="stylesheet">
 
   <style>
     * {
@@ -58,7 +58,7 @@
       overflow: hidden;
       color: var(--text);
       background: var(--bg);
-      background-image: 
+      background-image:
         radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.18) 0%, rgba(168, 85, 247, 0.08) 40%, rgba(9, 13, 22, 1) 85%);
       font-family: var(--sans);
     }
@@ -380,8 +380,17 @@
     }
 
     @keyframes pulseDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+      }
     }
 
     /* =========================
@@ -446,8 +455,15 @@
     }
 
     @keyframes floatOrb {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-8px);
+      }
     }
 
     .orb::before,
@@ -924,6 +940,7 @@
     }
 
     @keyframes bounce {
+
       0%,
       80%,
       100% {
@@ -1013,198 +1030,179 @@
 
 <body>
 
-<div class="layout">
+  <div class="layout">
 
-  <!-- SIDEBAR -->
+    <!-- SIDEBAR -->
 
-  <aside class="sidebar">
+    <aside class="sidebar">
 
-    <div class="brand">
+      <div class="brand">
 
-      <div class="brand-logo">
-        AI
-      </div>
+        <div class="brand-logo">
+          AI
+        </div>
 
-      <div class="brand-name">
-        AI Chat
-      </div>
-
-    </div>
-
-    <div class="sidebar-divider"></div>
-
-    <button
-      class="new-chat-btn"
-      onclick="newChat()"
-    >
-
-      <span class="new-chat-icon">
-        +
-      </span>
-
-      New chat
-
-    </button>
-
-    <div class="sidebar-section">
-
-      <div class="sidebar-title">
-        Workspace
-      </div>
-
-      <div class="sidebar-link">
-        <span>⌕</span>
-        Search
-      </div>
-
-      <div class="sidebar-link">
-        <span>▱</span>
-        Conversations
-      </div>
-
-      <div class="sidebar-link">
-        <span>⌘</span>
-        Developer tools
-      </div>
-
-    </div>
-
-    <div class="sidebar-section">
-
-      <div class="sidebar-title">
-        Recent
-      </div>
-
-      <div
-        class="history-list"
-        id="historyList"
-      ></div>
-
-    </div>
-
-    <div class="sidebar-footer">
-      AI Chat<br>
-      Flask · Gunicorn · Docker<br>
-      GPT-OSS 20B via Groq
-    </div>
-
-  </aside>
-
-  <!-- MAIN -->
-
-  <main class="main">
-
-    <!-- TOP BAR -->
-
-    <div class="topbar">
-
-      <div class="top-left">
-        AI Assistant
-      </div>
-
-      <div class="model-pill">
-
-        <span class="status-dot"></span>
-
-        gpt-oss-20b via Groq
+        <div class="brand-name">
+          AI Chat
+        </div>
 
       </div>
 
-    </div>
+      <div class="sidebar-divider"></div>
 
-    <!-- MESSAGE AREA -->
+      <button class="new-chat-btn" onclick="newChat()">
 
-    <div
-      class="messages"
-      id="messages"
-    >
+        <span class="new-chat-icon">
+          +
+        </span>
 
-      <!-- WELCOME -->
+        New chat
 
-      <div
-        class="welcome"
-        id="welcome"
-      >
+      </button>
 
-        <div class="welcome-inner">
+      <div class="sidebar-section">
 
-          <div class="orb"></div>
+        <div class="sidebar-title">
+          Workspace
+        </div>
 
-          <div class="welcome-title">
-            Hello ✌️
-          </div>
+        <div class="sidebar-link">
+          <span>⌕</span>
+          Search
+        </div>
 
-          <div class="welcome-subtitle">
-            How can I assist you today?
-          </div>
+        <div class="sidebar-link">
+          <span>▱</span>
+          Conversations
+        </div>
 
-          <div class="suggestion-section">
+        <div class="sidebar-link">
+          <span>⌘</span>
+          Developer tools
+        </div>
 
-            <div class="suggestion-title">
-              Explore new ideas
+      </div>
+
+      <div class="sidebar-section">
+
+        <div class="sidebar-title">
+          Recent
+        </div>
+
+        <div class="history-list" id="historyList"></div>
+
+      </div>
+
+      <div class="sidebar-footer">
+        AI Chat<br>
+        Flask · Gunicorn · Docker<br>
+        GPT-OSS 20B via Groq
+      </div>
+
+    </aside>
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+      <!-- TOP BAR -->
+
+      <div class="topbar">
+
+        <div class="top-left">
+          AI Assistant
+        </div>
+
+        <div class="model-pill">
+
+          <span class="status-dot"></span>
+
+          gpt-oss-20b via Groq
+
+        </div>
+
+      </div>
+
+      <!-- MESSAGE AREA -->
+
+      <div class="messages" id="messages">
+
+        <!-- WELCOME -->
+
+        <div class="welcome" id="welcome">
+
+          <div class="welcome-inner">
+
+            <div class="orb"></div>
+
+            <div class="welcome-title">
+              Hello!
             </div>
 
-            <div class="suggestion-grid">
+            <div class="welcome-subtitle">
+              How can I assist you today?
+            </div>
 
-              <button
-                class="suggestion-card"
-                onclick="sendSuggestion(this)"
-              >
+            <div class="suggestion-section">
 
-                <div class="suggestion-icon">
-                  ◇
-                </div>
+              <div class="suggestion-title">
+                Explore new ideas
+              </div>
 
-                <strong>
-                  Explain Kubernetes
-                </strong>
+              <div class="suggestion-grid">
 
-                <span>
-                  Learn Kubernetes concepts
-                  in a simple way.
-                </span>
+                <button class="suggestion-card" onclick="sendSuggestion(this)">
 
-              </button>
+                  <div class="suggestion-icon">
+                    ◇
+                  </div>
 
-              <button
-                class="suggestion-card"
-                onclick="sendSuggestion(this)"
-              >
+                  <strong>
+                    Explain Kubernetes
+                  </strong>
 
-                <div class="suggestion-icon">
-                  &lt;/&gt;
-                </div>
+                  <span>
+                    Learn Kubernetes concepts
+                    in a simple way.
+                  </span>
 
-                <strong>
-                  Write Python code
-                </strong>
+                </button>
 
-                <span>
-                  Generate clean and
-                  practical Python examples.
-                </span>
+                <button class="suggestion-card" onclick="sendSuggestion(this)">
 
-              </button>
+                  <div class="suggestion-icon">
+                    &lt;/&gt;
+                  </div>
 
-              <button
-                class="suggestion-card"
-                onclick="sendSuggestion(this)"
-              >
+                  <strong>
+                    Write Python code
+                  </strong>
 
-                <div class="suggestion-icon">
-                  ⚡
-                </div>
+                  <span>
+                    Generate clean and
+                    practical Python examples.
+                  </span>
 
-                <strong>
-                  Debug Docker
-                </strong>
+                </button>
 
-                <span>
-                  Troubleshoot Dockerfiles,
-                  containers and builds.
-                </span>
+                <button class="suggestion-card" onclick="sendSuggestion(this)">
 
-              </button>
+                  <div class="suggestion-icon">
+                    ⚡
+                  </div>
+
+                  <strong>
+                    Debug Docker
+                  </strong>
+
+                  <span>
+                    Troubleshoot Dockerfiles,
+                    containers and builds.
+                  </span>
+
+                </button>
+
+              </div>
 
             </div>
 
@@ -1214,139 +1212,174 @@
 
       </div>
 
-    </div>
+      <!-- COMPOSER -->
 
-    <!-- COMPOSER -->
+      <div class="composer-area">
 
-    <div class="composer-area">
+        <div class="composer-hint">
+          Ask anything, get clear answers.
+        </div>
 
-      <div class="composer-hint">
-        Ask anything, get clear answers.
-      </div>
+        <div class="quick-prompts">
 
-      <div class="quick-prompts">
+          <button onclick="usePrompt('Explain Kubernetes')">
+            Explain Kubernetes
+          </button>
 
-        <button
-          onclick="usePrompt('Explain Kubernetes')"
-        >
-          Explain Kubernetes
-        </button>
+          <button onclick="usePrompt('Help me with Docker')">
+            Docker help
+          </button>
 
-        <button
-          onclick="usePrompt('Help me with Docker')"
-        >
-          Docker help
-        </button>
+          <button onclick="usePrompt('Explain CI/CD')">
+            CI/CD
+          </button>
 
-        <button
-          onclick="usePrompt('Explain CI/CD')"
-        >
-          CI/CD
-        </button>
+          <button onclick="usePrompt('Help me debug a Python script')">
+            Python help
+          </button>
 
-        <button
-          onclick="usePrompt('Help me debug a Python script')"
-        >
-          Python help
-        </button>
+        </div>
 
-      </div>
+        <div class="composer">
 
-      <div class="composer">
+          <textarea id="userInput" rows="1" placeholder="What can I do for you?" autocomplete="off"
+            spellcheck="true"></textarea>
 
-        <textarea
-          id="userInput"
-          rows="1"
-          placeholder="What can I do for you?"
-          autocomplete="off"
-          spellcheck="true"
-        ></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()" title="Send">
 
-        <button
-          class="send-btn"
-          id="sendBtn"
-          onclick="sendMessage()"
-          title="Send"
-        >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
 
-          <svg
-            width="17"
-            height="17"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            stroke-width="2.2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+              <line x1="22" y1="2" x2="11" y2="13"></line>
 
-            <line
-              x1="22"
-              y1="2"
-              x2="11"
-              y2="13"
-            ></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
 
-            <polygon
-              points="22 2 15 22 11 13 2 9 22 2"
-            ></polygon>
+            </svg>
 
-          </svg>
+          </button>
 
-        </button>
+        </div>
+
+        <div class="composer-meta">
+
+          <span>
+            Secure session
+          </span>
+
+          <span>
+            Enter to send · Shift+Enter for new line
+          </span>
+
+        </div>
 
       </div>
 
-      <div class="composer-meta">
+    </main>
 
-        <span>
-          Secure session
-        </span>
+  </div>
 
-        <span>
-          Enter to send · Shift+Enter for new line
-        </span>
+  <script>
 
-      </div>
+    let history = [];
+    let sessions = [];
+    let currentSessionId = null;
+    let isLoading = false;
 
-    </div>
+    const messagesEl =
+      document.getElementById("messages");
 
-  </main>
+    const inputEl =
+      document.getElementById("userInput");
 
-</div>
+    const sendBtn =
+      document.getElementById("sendBtn");
 
-<script>
+    const welcome =
+      document.getElementById("welcome");
 
-  let history = [];
-  let sessions = [];
-  let currentSessionId = null;
-  let isLoading = false;
-
-  const messagesEl =
-    document.getElementById("messages");
-
-  const inputEl =
-    document.getElementById("userInput");
-
-  const sendBtn =
-    document.getElementById("sendBtn");
-
-  const welcome =
-    document.getElementById("welcome");
-
-  const historyList =
-    document.getElementById("historyList");
+    const historyList =
+      document.getElementById("historyList");
 
 
-  /* =========================
-     TEXTAREA AUTO RESIZE
-  ========================== */
+    /* =========================
+       TEXTAREA AUTO RESIZE
+    ========================== */
 
-  inputEl.addEventListener(
-    "input",
-    () => {
+    inputEl.addEventListener(
+      "input",
+      () => {
 
-      inputEl.style.height = "auto";
+        inputEl.style.height = "auto";
+
+        inputEl.style.height =
+          Math.min(
+            inputEl.scrollHeight,
+            170
+          ) + "px";
+
+      }
+    );
+
+
+    /* =========================
+       ENTER TO SEND
+    ========================== */
+
+    inputEl.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key === "Enter" &&
+          !event.shiftKey
+        ) {
+
+          event.preventDefault();
+
+          if (!isLoading) {
+            sendMessage();
+          }
+
+        }
+
+      }
+    );
+
+
+    /* =========================
+       SUGGESTION CARD
+    ========================== */
+
+    function sendSuggestion(button) {
+
+      const title =
+        button.querySelector(
+          "strong"
+        )?.textContent?.trim();
+
+      if (!title) {
+        return;
+      }
+
+      inputEl.value = title;
+
+      inputEl.focus();
+
+    }
+
+
+    /* =========================
+       QUICK PROMPT
+    ========================== */
+
+    function usePrompt(text) {
+
+      inputEl.value = text;
+
+      inputEl.focus();
+
+      inputEl.style.height =
+        "auto";
 
       inputEl.style.height =
         Math.min(
@@ -1355,391 +1388,320 @@
         ) + "px";
 
     }
-  );
 
 
-  /* =========================
-     ENTER TO SEND
-  ========================== */
+    /* =========================
+       NEW CHAT
+    ========================== */
 
-  inputEl.addEventListener(
-    "keydown",
-    (event) => {
+    function newChat() {
 
-      if (
-        event.key === "Enter" &&
-        !event.shiftKey
-      ) {
+      if (history.length > 0) {
 
-        event.preventDefault();
+        const firstUserMessage =
+          history.find(
+            message =>
+              message.role === "user"
+          );
 
-        if (!isLoading) {
-          sendMessage();
+        if (firstUserMessage) {
+
+          const label =
+            firstUserMessage.content.slice(
+              0,
+              36
+            ) +
+            (
+              firstUserMessage.content.length > 36
+                ? "…"
+                : ""
+            );
+
+          sessions.unshift({
+            id: Date.now(),
+            label,
+            history: [...history]
+          });
+
         }
 
       }
 
-    }
-  );
+      history = [];
 
+      currentSessionId = null;
 
-  /* =========================
-     SUGGESTION CARD
-  ========================== */
+      setLoading(false);
 
-  function sendSuggestion(button) {
+      inputEl.value = "";
 
-    const title =
-      button.querySelector(
-        "strong"
-      )?.textContent?.trim();
+      inputEl.style.height =
+        "auto";
 
-    if (!title) {
-      return;
-    }
+      messagesEl.innerHTML = "";
 
-    inputEl.value = title;
+      const freshWelcome =
+        welcome.cloneNode(true);
 
-    inputEl.focus();
+      freshWelcome.style.display =
+        "flex";
 
-  }
-
-
-  /* =========================
-     QUICK PROMPT
-  ========================== */
-
-  function usePrompt(text) {
-
-    inputEl.value = text;
-
-    inputEl.focus();
-
-    inputEl.style.height =
-      "auto";
-
-    inputEl.style.height =
-      Math.min(
-        inputEl.scrollHeight,
-        170
-      ) + "px";
-
-  }
-
-
-  /* =========================
-     NEW CHAT
-  ========================== */
-
-  function newChat() {
-
-    if (history.length > 0) {
-
-      const firstUserMessage =
-        history.find(
-          message =>
-            message.role === "user"
-        );
-
-      if (firstUserMessage) {
-
-        const label =
-          firstUserMessage.content.slice(
-            0,
-            36
-          ) +
-          (
-            firstUserMessage.content.length > 36
-              ? "…"
-              : ""
-          );
-
-        sessions.unshift({
-          id: Date.now(),
-          label,
-          history: [...history]
-        });
-
-      }
-
-    }
-
-    history = [];
-
-    currentSessionId = null;
-
-    setLoading(false);
-
-    inputEl.value = "";
-
-    inputEl.style.height =
-      "auto";
-
-    messagesEl.innerHTML = "";
-
-    const freshWelcome =
-      welcome.cloneNode(true);
-
-    freshWelcome.style.display =
-      "flex";
-
-    messagesEl.appendChild(
-      freshWelcome
-    );
-
-    renderHistory();
-
-    inputEl.focus();
-
-  }
-
-
-  /* =========================
-     LOAD SESSION
-  ========================== */
-
-  function loadSession(id) {
-
-    const session =
-      sessions.find(
-        item => item.id === id
+      messagesEl.appendChild(
+        freshWelcome
       );
 
-    if (!session) {
-      return;
+      renderHistory();
+
+      inputEl.focus();
+
     }
 
-    history = [
-      ...session.history
-    ];
 
-    currentSessionId = id;
+    /* =========================
+       LOAD SESSION
+    ========================== */
 
-    messagesEl.innerHTML = "";
+    function loadSession(id) {
 
-    history.forEach(
-      message => {
-
-        appendMessage(
-          message.role,
-          message.content
+      const session =
+        sessions.find(
+          item => item.id === id
         );
 
+      if (!session) {
+        return;
       }
-    );
 
-    renderHistory();
+      history = [
+        ...session.history
+      ];
 
-    scrollToBottom();
+      currentSessionId = id;
 
-    inputEl.focus();
+      messagesEl.innerHTML = "";
 
-  }
+      history.forEach(
+        message => {
 
-
-  /* =========================
-     RENDER HISTORY
-  ========================== */
-
-  function renderHistory() {
-
-    historyList.innerHTML = "";
-
-    sessions.forEach(
-      session => {
-
-        const item =
-          document.createElement(
-            "div"
+          appendMessage(
+            message.role,
+            message.content
           );
 
-        item.className =
-          "history-item" +
-          (
-            session.id ===
-            currentSessionId
-              ? " active"
-              : ""
-          );
+        }
+      );
 
-        item.dataset.id =
-          session.id;
+      renderHistory();
 
-        item.textContent =
-          session.label;
+      scrollToBottom();
 
-        item.onclick =
-          () => loadSession(
-            session.id
-          );
+      inputEl.focus();
 
-        historyList.appendChild(
-          item
-        );
-
-      }
-    );
-
-  }
-
-
-  /* =========================
-     SEND MESSAGE
-  ========================== */
-
-  async function sendMessage() {
-
-    const text =
-      inputEl.value.trim();
-
-    if (
-      !text ||
-      isLoading
-    ) {
-      return;
     }
 
-    welcome.style.display =
-      "none";
 
-    inputEl.value = "";
+    /* =========================
+       RENDER HISTORY
+    ========================== */
 
-    inputEl.style.height =
-      "auto";
+    function renderHistory() {
 
+      historyList.innerHTML = "";
 
-    history.push({
-      role: "user",
-      content: text
-    });
+      sessions.forEach(
+        session => {
 
+          const item =
+            document.createElement(
+              "div"
+            );
 
-    appendMessage(
-      "user",
-      text
-    );
+          item.className =
+            "history-item" +
+            (
+              session.id ===
+                currentSessionId
+                ? " active"
+                : ""
+            );
 
+          item.dataset.id =
+            session.id;
 
-    const typingRow =
-      appendTyping();
+          item.textContent =
+            session.label;
 
+          item.onclick =
+            () => loadSession(
+              session.id
+            );
 
-    setLoading(true);
+          historyList.appendChild(
+            item
+          );
 
+        }
+      );
 
-    try {
-
-      const response =
-        await fetch(
-          "/chat",
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body: JSON.stringify({
-              history
-            })
-
-          }
-        );
+    }
 
 
-      const data =
-        await response.json();
+    /* =========================
+       SEND MESSAGE
+    ========================== */
+
+    async function sendMessage() {
+
+      const text =
+        inputEl.value.trim();
+
+      if (
+        !text ||
+        isLoading
+      ) {
+        return;
+      }
+
+      welcome.style.display =
+        "none";
+
+      inputEl.value = "";
+
+      inputEl.style.height =
+        "auto";
 
 
-      typingRow.remove();
+      history.push({
+        role: "user",
+        content: text
+      });
 
 
-      if (data.error) {
+      appendMessage(
+        "user",
+        text
+      );
+
+
+      const typingRow =
+        appendTyping();
+
+
+      setLoading(true);
+
+
+      try {
+
+        const response =
+          await fetch(
+            "/chat",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+
+              body: JSON.stringify({
+                history
+              })
+
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        typingRow.remove();
+
+
+        if (data.error) {
+
+          appendMessage(
+            "ai",
+            null,
+            data.error
+          );
+
+          history.pop();
+
+        } else {
+
+          history.push({
+            role: "assistant",
+            content: data.response
+          });
+
+          appendMessage(
+            "ai",
+            data.response
+          );
+
+        }
+
+
+      } catch (error) {
+
+        typingRow.remove();
 
         appendMessage(
           "ai",
           null,
-          data.error
+          "Network error. Please try again."
         );
 
         history.pop();
 
-      } else {
-
-        history.push({
-          role: "assistant",
-          content: data.response
-        });
-
-        appendMessage(
-          "ai",
-          data.response
-        );
-
       }
 
 
-    } catch (error) {
+      setLoading(false);
 
-      typingRow.remove();
-
-      appendMessage(
-        "ai",
-        null,
-        "Network error. Please try again."
-      );
-
-      history.pop();
+      scrollToBottom();
 
     }
 
 
-    setLoading(false);
+    /* =========================
+       APPEND MESSAGE
+    ========================== */
 
-    scrollToBottom();
+    function appendMessage(
+      role,
+      content,
+      error = null
+    ) {
 
-  }
+      const row =
+        document.createElement(
+          "div"
+        );
 
-
-  /* =========================
-     APPEND MESSAGE
-  ========================== */
-
-  function appendMessage(
-    role,
-    content,
-    error = null
-  ) {
-
-    const row =
-      document.createElement(
-        "div"
-      );
-
-    row.className =
-      "message-row";
+      row.className =
+        "message-row";
 
 
-    const isUser =
-      role === "user";
+      const isUser =
+        role === "user";
 
-    const label =
-      isUser
-        ? "You"
-        : "Llama";
+      const label =
+        isUser
+          ? "You"
+          : "Llama";
 
-    const abbreviation =
-      isUser
-        ? "U"
-        : "AI";
+      const abbreviation =
+        isUser
+          ? "U"
+          : "AI";
 
 
-    row.innerHTML = `
+      row.innerHTML = `
 
-      <div class="avatar ${
-        isUser ? "user" : "ai"
-      }">
+      <div class="avatar ${isUser ? "user" : "ai"
+        }">
 
         ${abbreviation}
 
@@ -1751,16 +1713,15 @@
           ${label}
         </div>
 
-        ${
-          error
+        ${error
 
-            ? `
+          ? `
               <div class="error-msg">
                 ${escapeHtml(error)}
               </div>
             `
 
-            : `
+          : `
               <div class="message-text">
                 ${formatText(content)}
               </div>
@@ -1772,35 +1733,35 @@
     `;
 
 
-    messagesEl.appendChild(
-      row
-    );
-
-
-    scrollToBottom();
-
-
-    return row;
-
-  }
-
-
-  /* =========================
-     TYPING
-  ========================== */
-
-  function appendTyping() {
-
-    const row =
-      document.createElement(
-        "div"
+      messagesEl.appendChild(
+        row
       );
 
-    row.className =
-      "message-row";
+
+      scrollToBottom();
 
 
-    row.innerHTML = `
+      return row;
+
+    }
+
+
+    /* =========================
+       TYPING
+    ========================== */
+
+    function appendTyping() {
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+      row.className =
+        "message-row";
+
+
+      row.innerHTML = `
 
       <div class="avatar ai">
         AI
@@ -1825,107 +1786,107 @@
     `;
 
 
-    messagesEl.appendChild(
-      row
-    );
-
-
-    scrollToBottom();
-
-
-    return row;
-
-  }
-
-
-  /* =========================
-     LOADING STATE
-  ========================== */
-
-  function setLoading(state) {
-
-    isLoading = state;
-
-    sendBtn.disabled =
-      state;
-
-    inputEl.disabled =
-      state;
-
-  }
-
-
-  /* =========================
-     SCROLL
-  ========================== */
-
-  function scrollToBottom() {
-
-    messagesEl.scrollTop =
-      messagesEl.scrollHeight;
-
-  }
-
-
-  /* =========================
-     HTML ESCAPE
-  ========================== */
-
-  function escapeHtml(str) {
-
-    return String(str)
-
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-
-      .replace(
-        /</g,
-        "&lt;"
-      )
-
-      .replace(
-        />/g,
-        "&gt;"
-      )
-
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-
-      .replace(
-        /'/g,
-        "&#039;"
+      messagesEl.appendChild(
+        row
       );
 
-  }
+
+      scrollToBottom();
 
 
-  /* =========================
-     FORMAT AI RESPONSE
-  ========================== */
+      return row;
 
-  function formatText(text) {
-
-    if (!text) {
-      return "";
     }
 
 
-    let safe =
-      escapeHtml(text);
+    /* =========================
+       LOADING STATE
+    ========================== */
+
+    function setLoading(state) {
+
+      isLoading = state;
+
+      sendBtn.disabled =
+        state;
+
+      inputEl.disabled =
+        state;
+
+    }
 
 
-    /* Code blocks */
+    /* =========================
+       SCROLL
+    ========================== */
 
-    safe =
-      safe.replace(
-        /```(\w*)\n?([\s\S]*?)```/g,
-        (_, language, code) => {
+    function scrollToBottom() {
 
-          return `
+      messagesEl.scrollTop =
+        messagesEl.scrollHeight;
+
+    }
+
+
+    /* =========================
+       HTML ESCAPE
+    ========================== */
+
+    function escapeHtml(str) {
+
+      return String(str)
+
+        .replace(
+          /&/g,
+          "&amp;"
+        )
+
+        .replace(
+          /</g,
+          "&lt;"
+        )
+
+        .replace(
+          />/g,
+          "&gt;"
+        )
+
+        .replace(
+          /"/g,
+          "&quot;"
+        )
+
+        .replace(
+          /'/g,
+          "&#039;"
+        );
+
+    }
+
+
+    /* =========================
+       FORMAT AI RESPONSE
+    ========================== */
+
+    function formatText(text) {
+
+      if (!text) {
+        return "";
+      }
+
+
+      let safe =
+        escapeHtml(text);
+
+
+      /* Code blocks */
+
+      safe =
+        safe.replace(
+          /```(\w*)\n?([\s\S]*?)```/g,
+          (_, language, code) => {
+
+            return `
             <pre>
               <code>
 ${code.trim()}
@@ -1933,33 +1894,34 @@ ${code.trim()}
             </pre>
           `;
 
-        }
-      );
+          }
+        );
 
 
-    /* Inline code */
+      /* Inline code */
 
-    safe =
-      safe.replace(
-        /`([^`]+)`/g,
-        "<code>$1</code>"
-      );
-
-
-    /* Bold */
-
-    safe =
-      safe.replace(
-        /\*\*(.+?)\*\*/g,
-        "<strong>$1</strong>"
-      );
+      safe =
+        safe.replace(
+          /`([^`]+)`/g,
+          "<code>$1</code>"
+        );
 
 
-    return safe;
+      /* Bold */
 
-  }
+      safe =
+        safe.replace(
+          /\*\*(.+?)\*\*/g,
+          "<strong>$1</strong>"
+        );
 
-</script>
+
+      return safe;
+
+    }
+
+  </script>
 
 </body>
+
 </html>

@@ -9,31 +9,38 @@ jobs:
 
     # CI (Continuous Integration with Security Scanning)
 
+    # 1. Code Quality
+
     code-quality:
         uses: ./.github/workflows/code-quality.yml
 
+    # 2. Dependency & Security Scans
+
+    dependency-check:
+        needs: [code-quality]
+        uses: ./.github/workflows/dependency-check.yml
+
     secrets-scan:
+        needs: [code-quality]
         uses: ./.github/workflows/secrets-scan.yml
 
     scan-dockerfile:
+        needs: [code-quality]
         uses: ./.github/workflows/scan-dockerfile.yml
 
-    # Dependency  & Unit Test (Only triggered if Phase 1 Static Scans pass successfully)
-    dependency-check:
-        needs: [code-quality, secrets-scan, scan-dockerfile]
-        uses: ./.github/workflows/dependency-check.yml
+    # 3. Unit & Integration Testing 
 
     tests:
-        needs: [code-quality, secrets-scan, scan-dockerfile]
+        needs: [dependency-check, secrets-scan, scan-dockerfile]
         uses: ./.github/workflows/tests.yml
 
-    # Build once the security scans are completed.
+    # 4. Build & Image Scan
     build:
-        needs: [dependency-check, tests]
+        needs: [tests]
         uses: ./.github/workflows/docker-build-push.yml
         secrets: inherit
 
-    # Image Scan (Only triggered if Build is successful)
+    # 5. Image Scan
     trivy:
         needs: [build]
         uses: ./.github/workflows/image-scan.yml
