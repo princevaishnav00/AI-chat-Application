@@ -48,31 +48,12 @@ This project demonstrates an automated deployment flow for an AI chat service in
 
 ## CI/CD Pipeline Architecture
 
+![CI/CD Pipeline Architecture](docs/cicd_architecture_diagram_black.jpg)
+
 ```text
-push to main
-    │
-    ├── [1] Code Quality ────── flake8 + bandit SAST
-    │           │
-    │           ▼
-    ├── [2] Parallel Scans ──── dependency-check (pip-audit)
-    │                       ├── secrets-scan (gitleaks)
-    │                       └── scan-dockerfile (hadolint)
-    │           │
-    │           ▼
-    ├── [3] Automated Tests ─── pytest
-    │           │
-    │           ▼
-    ├── [4] Build & Push ────── Docker Hub image build & push
-    │           │
-    │           ▼
-    ├── [5] Image Scan ──────── Trivy container vulnerability check
-    │           │
-    │           ▼
-    ├── [6] Deploy ──────────── SSH into EC2 server & Docker Compose UP
-    │           │
-    │           ▼
-    └── [7] Slack Notify ────── Slack Webhook Alert (Success / Failure)
+Push to main ➔ Triggers CICD Workflow ➔ [1] Code Quality ➔ [2] Security Scans ➔ [3] Pytest ➔ [4] Docker Build ➔ [5] Trivy Scan ➔ [6] EC2 Deploy ➔ [7] Slack Alert
 ```
+
 
 The master pipeline is defined in `main-cicd-pipeline.yml`. On `push` to `main`, it executes the following modular workflows in structured stages:
 
