@@ -53,10 +53,12 @@ jobs:
         secrets: inherit
 
     #7. Slack-Notification
-    send-alert:
+    Notification:
         needs: [code-quality, dependency-check, secrets-scan, scan-dockerfile, tests, build, trivy, deploy]
-        if: failure()  # <--- ONLY executes if any of the above job fails
+        if: always()
         uses: ./.github/workflows/Slack-Notify.yml
+        with:
+          status: ${{ contains(needs.*.result, 'failure') && 'failure' || 'success' }}
         secrets:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 

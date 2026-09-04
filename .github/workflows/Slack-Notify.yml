@@ -2,20 +2,24 @@ name: Slack-Notification
 
 on:
     workflow_call:
+        inputs:
+          status:
+            required: true
+            type: string   # Receives 'success' or 'failure' from the main workflow
         secrets:
           SLACK_WEBHOOK_URL:
             required: true
 
 jobs:
-    notify-slack:
+    Slack-notify:
         runs-on: ubuntu-latest
         steps:
             - name: Slack Notification
               uses: ravsamhq/notify-slack-action@v2.5.0
               with:
-                status: failure
-                notification_title: "🚨 DevSecOps Pipeline Failed!"
-                message: "Check workflow logs for details"
-                color: danger
+                status: ${{ inputs.status }}
+                notification_title: "${{ inputs.status == 'failure' && '🚨 Alert CICD failed' || '✅ CICD Done successfully' }}"
+                message: "${{ inputs.status == 'failure' && 'Check workflow logs for details' || 'AI Chat app is Deployed Successfully!' }}"
+                color: ${{ inputs.status == 'failure' && 'danger' || 'good' }}
               env:
                 SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
