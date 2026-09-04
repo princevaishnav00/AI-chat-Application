@@ -99,7 +99,7 @@ The master pipeline is defined in `main-cicd-pipeline.yml`. On `push` to `main`,
 
 - **Backend**: Flask (`app.py`), Gunicorn (`gunicorn.conf.py`) WSGI server listening internally on port `5000`.
 - **Reverse Proxy**: Nginx (`nginx/default.conf`) listening on public port `80`, proxying requests to Flask container.
-- **AI Model**: Groq API integration using `llama-3.3-70b-versatile` (or model configured in Flask app).
+- **AI Model**: Groq API integration using `openai/gpt-oss-20b` (or model configured in Flask app).
 - **Dependencies**: Listed in `requirements.txt` (Flask, requests, gunicorn, python-dotenv, etc.).
 
 ---
