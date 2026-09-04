@@ -1,126 +1,129 @@
-# AI Chat App
-## End-to-End DevSecOps CI/CD Pipeline
+# 🚀 AI-Chat Application Deployment with GitHub Actions CI/CD
+## End-to-End Automated CI/CD Pipeline with Security
 
-An AI Chat Application created using Flask, with an end-to-end CI/CD + DevSecOps pipeline built entirely using GitHub Actions.
+An AI Chat Application created using Flask, with an automated CI/CD pipeline built entirely using GitHub Actions with DevSecOps concepts.
 
-The app communicates with Groq's OpenAI-compatible chat completions API using the `llama-3.3-70b-versatile` model.
+The app communicates with Groq's OpenAI-compatible chat completions API using the `openai/gpt-oss-20b` model.
 
-## Project structure
+## Project Structure
 
 ```text
 ai-chat-app/
-├── app.py
-├── Dockerfile
-├── docker-compose.yml
-├── gunicorn.conf.py
-├── nginx/
-│   └── default.conf
-├── requirements.txt
-├── templates/
-│   └── index.html
 ├── .github/
 │   └── workflows/
+│       ├── Slack-Notify.yml
 │       ├── code-quality.yml
-│       ├── dependency-scan.yml
+│       ├── dependency-check.yml
 │       ├── deploy-to-server.yml
-│       ├── devsecops-pipeline.yml
+│       ├── main-cicd-pipeline.yml
 │       ├── docker-build-push.yml
-│       ├── docker-lint.yml
 │       ├── image-scan.yml
-│       └── secrets-scan.yml
-└── README.md
+│       ├── scan-dockerfile.yml
+│       ├── secrets-scan.yml
+│       └── tests.yml
+├── nginx/
+│   └── default.conf
+├── templates/
+│   └── index.html
+├── .gitignore
+├── app.py
+├── docker-compose.yml
+├── Dockerfile
+├── gunicorn.conf.py
+├── README.md
+├── requirements.txt
+└── test_app.py
 ```
 
+## Why This Repo Exists
 
-## Why this repo exists
+This project demonstrates an automated deployment flow for an AI chat service integrated with core DevSecOps concepts:
 
-This project demonstrates a security-first deployment flow for a simple AI chat service:
+- **Enforced Code Quality**: Linting and static analysis on code pushes
+- **Dependency & Secrets Scanning**: Automated package vulnerability checks and Git history secret detection
+- **Dockerfile & Image Security**: Dockerfile linting and Trivy container vulnerability scanning
+- **Automated Testing**: Unit/route testing via Pytest
+- **Secure Deployment**: Remote SSH deployment using Docker Compose and Nginx reverse proxy
+- **Slack Notifications**: Automated alerts for pipeline success or failure status
 
-- Enforced code quality with linting and static analysis
-- Dependency vulnerability scanning
-- Dockerfile validation and container image scanning
-- Secrets detection in repository history
-- Secure production deployment through GitHub Actions and SSH
+## CI/CD Pipeline Architecture
 
-## DevSecOps Pipeline
-
-```
+```text
 push to main
-    ├── Code Quality ──── flake8 + bandit SAST (matrix: 3.11–3.13)
-    ├── Secrets Scan ──── gitleaks (full git history)
-    ├── Dependency Scan ─ pip-audit (package CVEs)
-    ├── Docker Lint ───── hadolint (Dockerfile best practices)
-    └── Tests ─────────── pytest (route tests)
-            │ (all five must pass)
-            ▼
-        Docker Build & Push ── build image, push to Docker Hub
-            │
-            ▼
-        Image Scan ─────────── Trivy (CRITICAL + HIGH CVEs)
-            │
-            ▼
-        Deploy to Server ───── SSH into EC2, docker compose up
+    │
+    ├── [1] Code Quality ────── flake8 + bandit SAST
+    │           │
+    │           ▼
+    ├── [2] Parallel Scans ──── dependency-check (pip-audit)
+    │                       ├── secrets-scan (gitleaks)
+    │                       └── scan-dockerfile (hadolint)
+    │           │
+    │           ▼
+    ├── [3] Automated Tests ─── pytest
+    │           │
+    │           ▼
+    ├── [4] Build & Push ────── Docker Hub image build & push
+    │           │
+    │           ▼
+    ├── [5] Image Scan ──────── Trivy container vulnerability check
+    │           │
+    │           ▼
+    ├── [6] Deploy ──────────── SSH into EC2 server & Docker Compose UP
+    │           │
+    │           ▼
+    └── [7] Slack Notify ────── Slack Webhook Alert (Success / Failure)
 ```
 
-The root pipeline is `devsecops-pipeline.yml`. On `push` to `main`, it executes all the following workflows.
+The master pipeline is defined in `main-cicd-pipeline.yml`. On `push` to `main`, it executes the following modular workflows in structured stages:
 
-| Workflow | Purpose | Key tools |
+| Workflow | Purpose | Key Tools |
 |---|---|---|
-| `code-quality.yml` | Validate code style and application security | `flake8`, `bandit` |
-| `dependency-scan.yml` | Scan Python dependencies for vulnerabilities | `pip-audit` |
-| `docker-lint.yml` | Validate Dockerfile best practices | `hadolint` |
-| `docker-build-push.yml` | Build and push Docker image to Docker Hub | `docker/build-push-action` |
-| `image-scan.yml` | Scan container image for CVEs | `trivy` |
-| `secrets-scan.yml` | Detect exposed secrets in Git history | `gitleaks` |
-| `deploy-to-server.yml` | Deploy the app to production via SSH | `appleboy/ssh-action`, `docker compose` |
+| [`code-quality.yml`](.github/workflows/code-quality.yml) | Validate code style and application static security | `flake8`, `bandit` |
+| [`dependency-check.yml`](.github/workflows/dependency-check.yml) | Scan Python dependencies for known CVEs | `pip-audit` |
+| [`secrets-scan.yml`](.github/workflows/secrets-scan.yml) | Detect exposed secrets in Git history | `gitleaks` |
+| [`scan-dockerfile.yml`](.github/workflows/scan-dockerfile.yml) | Validate Dockerfile syntax & security practices | `hadolint` |
+| [`tests.yml`](.github/workflows/tests.yml) | Run unit and route tests | `pytest` |
+| [`docker-build-push.yml`](.github/workflows/docker-build-push.yml) | Build and push Docker image to Docker Hub | `docker/build-push-action` |
+| [`image-scan.yml`](.github/workflows/image-scan.yml) | Scan container image for HIGH and CRITICAL vulnerabilities | `trivy` |
+| [`deploy-to-server.yml`](.github/workflows/deploy-to-server.yml) | Deploy containerized app to EC2 production server via SSH | `appleboy/ssh-action`, `docker compose` |
+| [`Slack-Notify.yml`](.github/workflows/Slack-Notify.yml) | Send pipeline status alerts to Slack | `ravsamhq/notify-slack-action` |
 
-### Workflow Summary
+### Pipeline Execution Order
 
-1. `code-quality.yml` runs linting and static analysis across supported Python versions (`3.11`, `3.12`, `3.13`).
-2. `secrets-scan.yml` performs GitLeaks scanning with full history.
-3. `dependency-scan.yml` checks dependencies against known vulnerabilities.
-4. `docker-lint.yml` validates the Dockerfile.
-5. `docker-build-push.yml` builds and pushes the Docker image to Docker Hub.
-6. `image-scan.yml` scans the image for high/critical vulnerabilities.
-7. `deploy-to-server.yml` deploys only after all prior stages pass.
+1. **Stage 1 - Quality**: `code-quality.yml` checks code standards.
+2. **Stage 2 - Security**: `dependency-check.yml`, `secrets-scan.yml`, and `scan-dockerfile.yml` run in parallel once code quality passes.
+3. **Stage 3 - Testing**: `tests.yml` executes Pytest suite after security scans pass.
+4. **Stage 4 - Build**: `docker-build-push.yml` builds and pushes the image to Docker Hub.
+5. **Stage 5 - Image Audit**: `image-scan.yml` scans the pushed Docker image using Trivy.
+6. **Stage 6 - Deployment**: `deploy-to-server.yml` SSHs into the server to pull and restart the application stack.
+7. **Stage 7 - Notification**: `Slack-Notify.yml` fires a notification containing execution status.
 
 ## Getting Started
 
-1. Fork this repo.
-2. Set up secrets — go to repo **Settings → Secrets and Variables → Actions**:
-   - Secret: `GROQ_API_KEY` (your Groq API Key, Create a key on www.groq.com > console > API Keys)
-   - Secret: `DOCKERHUB_TOKEN` (your Docker Hub access token)
-   - Secret: `EC2_SSH_HOST`, `EC2_SSH_USER`, `EC2_SSH_PRIVATE_KEY` (for server deploy)
-   - Secret: `GITLEAKS_LICENSE` (for gitleaks action)
-   - Variable: `DOCKERHUB_USER` (your Docker Hub username)
-3. Push to `main` — the DevSecOps pipeline triggers automatically.
+1. **Fork or Clone this repository**.
+2. **Configure GitHub Secrets & Variables** — go to repo **Settings → Secrets and Variables → Actions**:
+   * **Secrets**:
+     - `GROQ_API_KEY`: Your Groq API Key (from [Groq Console](https://console.groq.com/keys))
+     - `DOCKERHUB_TOKEN`: Docker Hub Personal Access Token
+     - `EC2_SSH_HOST`, `EC2_SSH_USER`, `EC2_SSH_PRIVATE_KEY`: Server deployment SSH credentials
+     - `SLACK_WEBHOOK_URL`: Slack Incoming Webhook URL for build notifications
+   * **Variables**:
+     - `DOCKERHUB_USER`: Your Docker Hub username
+3. **Push to `main`** — the CI/CD pipeline will automatically trigger.
+4. **Manual Triggers** — Go to the Actions tab → Select any workflow → Run workflow manually.
 
-> Note: `deploy` and `image-scan` jobs will fail until you configure your own server and Docker Hub secrets. This is expected — the CI jobs (`code-quality`, `dependency-scan`, `docker-lint`, `secrets-scan`) will work out of the box.
+> **Note**: Deployment and image scan stages require valid Docker Hub and EC2 server credentials. Pre-deployment CI jobs (`code-quality`, `dependency-check`, `secrets-scan`, `scan-dockerfile`, `tests`) work out of the box.
 
-4. Try manual triggers — go to the Actions tab → pick a workflow → Run workflow.
-5. Read each workflow file — they are commented for learning.
+## Application Architecture & Stack
 
-## Dependencies
-
-This app is intentionally minimal to keep the security baseline small.
-
-- `Flask` — web framework
-- `requests` — HTTP client
-- `gunicorn` — production WSGI server
-- `python-dotenv` — environment variable loader for local development
-- `flake8` — Python linting
-- `bandit` — Python security static analysis
-
-## Notes
-
-- The application sends chat requests to `https://api.groq.com/openai/v1/chat/completions`.
-
-- Security checks are enforced before any deployment step.
-
-<br/>
+- **Backend**: Flask (`app.py`), Gunicorn (`gunicorn.conf.py`) WSGI server listening internally on port `5000`.
+- **Reverse Proxy**: Nginx (`nginx/default.conf`) listening on public port `80`, proxying requests to Flask container.
+- **AI Model**: Groq API integration using `llama-3.3-70b-versatile` (or model configured in Flask app).
+- **Dependencies**: Listed in `requirements.txt` (Flask, requests, gunicorn, python-dotenv, etc.).
 
 ---
 
 **Prince Vaishnav**
 - **Email**: vaishnavprince995@gmail.com
 - **LinkedIn**: [https://www.linkedin.com/in/prince-vaishnav-b685a0319/](https://www.linkedin.com/in/prince-vaishnav-b685a0319/)
+

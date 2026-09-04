@@ -3,11 +3,10 @@ services:
     image: ${DOCKERHUB_USER}/ai-chat-app:${DOCKER_TAG}
     environment:
       - GROQ_API_KEY=${GROQ_API_KEY}
-    # OLD: ports: - "80:80" (Gunicorn listened directly on public port 80)
     expose:
       - "5000"
 
-  # NEW: Nginx reverse proxy container handling public port 80 traffic
+  # Nginx reverse proxy container handling public port 80 traffic
   nginx:
     image: nginx:alpine
     ports:
