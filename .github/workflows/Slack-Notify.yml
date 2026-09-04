@@ -1,0 +1,18 @@
+name: Slack-Notification
+
+on:
+    workflow_call:
+
+jobs:
+    notify-slack:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Slack Notification
+              uses: ravsamhq/notify-slack-action@v2.5.0
+              with:
+                status: failure
+                notification_title: "🚨 DevSecOps Pipeline Failed!"
+                message: "Check workflow logs for details"
+                color: danger
+              env:
+                SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

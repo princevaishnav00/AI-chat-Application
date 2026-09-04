@@ -46,8 +46,18 @@ jobs:
         uses: ./.github/workflows/image-scan.yml
         secrets: inherit
 
-    # Deploy to Production (Only triggered if Image Scan is successful)
+    # 6. Deploy to Production (Only triggered if Image Scan is successful)
     deploy:
         needs: [trivy]
         uses: ./.github/workflows/deploy-to-server.yml
         secrets: inherit
+
+    #7. Slack-Notification
+    send-alert:
+        needs: [code-quality, dependency-check, secrets-scan, scan-dockerfile, tests, build, trivy, deploy]
+        if: failure()  # <--- ONLY executes if any of the above job fails
+        uses: ./.github/workflows/Slack-Notify.yml
+        secrets:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    
