@@ -9,10 +9,7 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
 
-        env:
-            DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
-            DOCKER_TAG: ${{ github.sha }}
-
+      
         steps:
             - name: Checkout code
               uses: actions/checkout@v6
@@ -40,13 +37,16 @@ jobs:
                     
             - name: SSH to Production Server & Run the app
               uses: appleboy/ssh-action@v1.2.5
+              env:
+                DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+                DOCKER_TAG: ${{ github.sha }}
               with:
                 host: ${{ secrets.EC2_SSH_HOST }}
                 username: ${{ secrets.EC2_SSH_USER }}
                 key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
                 envs: DOCKERHUB_USER,DOCKER_TAG
                 script: |
-                    echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username ${{ DOCKERHUB_USER }} --password-stdin
+                    echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login --username  $DOCKERHUB_USER  --password-stdin
                     cd ~/ai-chat-app-prod
                     touch .env
                     chmod 800 .env
